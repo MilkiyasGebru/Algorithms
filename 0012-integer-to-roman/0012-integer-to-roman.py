@@ -6,8 +6,7 @@ class Solution:
         
         for roman in roman_letter.keys():
             
-            for _ in range(num//roman_letter[roman]):
-                answer.append(roman)
+            answer.extend([roman for _ in range(num//roman_letter[roman])])
                 
             num %= roman_letter[roman]
             
