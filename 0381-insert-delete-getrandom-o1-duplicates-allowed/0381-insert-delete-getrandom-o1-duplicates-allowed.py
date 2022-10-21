@@ -16,25 +16,20 @@ class RandomizedCollection:
 
     def remove(self, val: int) -> bool:
         
-        isFound = len(self.position[val]) > 0
+        if not(len(self.position[val]) > 0) :
+            return False
         
-        if isFound :
-            
-            for index in self.position[val]:
-                break
-                
-            self.position[val].remove(index)
-            self.numbers[-1],self.numbers[index]=self.numbers[index],self.numbers[-1]
-            self.numbers.pop()
-            
-            if index < len(self.numbers):
-                
-                self.position[self.numbers[index]].remove(len(self.numbers))
-                self.position[self.numbers[index]].add(index)
-                
-            return True
-            
-        return False
+        index = self.position[val].pop()   
+        self.numbers[-1],self.numbers[index] = self.numbers[index],self.numbers[-1]
+        self.numbers.pop()
+
+        if index < len(self.numbers):
+
+            self.position[self.numbers[index]].remove(len(self.numbers))
+            self.position[self.numbers[index]].add(index)
+
+        return True
+
 
     def getRandom(self) -> int:
         
