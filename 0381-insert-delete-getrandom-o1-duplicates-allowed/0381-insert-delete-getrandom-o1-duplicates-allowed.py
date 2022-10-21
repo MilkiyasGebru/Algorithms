@@ -8,7 +8,6 @@ class RandomizedCollection:
     def insert(self, val: int) -> bool:
         
         isNotFound = len(self.position[val]) == 0
-        
         self.numbers.append(val)
         self.position[val].add(len(self.numbers)-1)
         
@@ -25,16 +24,17 @@ class RandomizedCollection:
                 break
                 
             self.position[val].remove(index)
-            if index != len(self.numbers)-1:
-                self.position[self.numbers[-1]].remove(len(self.numbers)-1)
             self.numbers[-1],self.numbers[index]=self.numbers[index],self.numbers[-1]
             self.numbers.pop()
             
             if index < len(self.numbers):
+                
+                self.position[self.numbers[index]].remove(len(self.numbers))
                 self.position[self.numbers[index]].add(index)
+                
             return True
             
-        
+        return False
 
     def getRandom(self) -> int:
         
