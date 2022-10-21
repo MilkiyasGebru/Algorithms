@@ -1,42 +1,39 @@
 class RandomizedSet:
 
     def __init__(self):
-
-        self.f = defaultdict(lambda:inf) 
-        self.arr = []
         
+        self.position = defaultdict(set)
+        self.numbers = []
+
     def insert(self, val: int) -> bool:
         
-        isNotFound = self.f[val] == inf
-        if isNotFound:
-            self.arr.append(val)
-            self.f[val]=len(self.arr)-1
-            return True
-        return False
+        if len(self.position[val]) > 0:
+            return False
+        
+        self.position[val].add(len(self.numbers))
+        self.numbers.append(val)
+        
+        return True
 
     def remove(self, val: int) -> bool:
         
-        if self.f[val] == inf:
+        if len(self.position[val]) == 0:
             return False
         
-        index = self.f[val]
-        self.arr[-1],self.arr[index]=self.arr[index],self.arr[-1]
-        self.arr.pop()
+        index = self.position[val].pop()
+        self.numbers[index],self.numbers[-1] = self.numbers[-1],self.numbers[index]
+        self.numbers.pop()
         
-        if index < len(self.arr):
-            self.f[self.arr[index]] = index
+        if index < len(self.numbers):
             
-        self.f[val]=inf
-        return True
+            self.position[self.numbers[index]].remove(len(self.numbers))
+            self.position[self.numbers[index]].add(index)
         
+        return True
 
     def getRandom(self) -> int:
         
-        index = random.randint(0,len(self.arr)-1)
-        
-        return self.arr[index]
-        
-        
+        return random.choice(self.numbers)
 
 
 # Your RandomizedSet object will be instantiated and called as such:
