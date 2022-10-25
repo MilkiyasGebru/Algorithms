@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
         
-        self.children = {}
+        self.children = defaultdict(lambda:None)
         self.isEnd = False
         
 class Trie:
@@ -13,13 +13,14 @@ class Trie:
     def addWord(self,word):
         
         node = self.root
-        
         for letter in word:
             
             if node.isEnd :
                 return
-            if letter not in node.children :
+            
+            if  not node.children[letter] :
                 node.children[letter]=TrieNode()
+                
             node =  node.children[letter]
             
         node.isEnd = True
@@ -31,7 +32,7 @@ class Trie:
         
         for letter in word:
             
-            if letter in node.children :
+            if  node.children[letter] :
                 
                 successor.append(letter)
                 node = node.children[letter]
