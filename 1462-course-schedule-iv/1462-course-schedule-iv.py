@@ -1,18 +1,41 @@
 class Solution:
+    def addParent(self,node,parent,graph,ancestor):
+        
+        if parent in ancestor[node]:
+            return 
+        
+        ancestor[node].add(parent)
+        
+        for child in graph[node]:
+            self.addParent(child,parent,graph,ancestor)
+            
     def checkIfPrerequisite(self, numCourses: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
         
-        dp=[[False for _ in range(numCourses)] for _ in range(numCourses)]
+        indegree = [0  for _ in range(numCourses)]
+        ancestor = defaultdict(set)
+        graph = defaultdict(set)
+        
+        queue = deque()
         
         for pre,after in prerequisites:
-            dp[pre][after] = True
+            graph[pre].add(after)
+            indegree[after]+=1
             
-        for k in range(numCourses):
-            
-            for i in range(numCourses):
-                
-                for j in range(numCourses):
-                    
-                    dp[i][j] = dp[i][j] or  (dp[i][k] and dp[k][j])
-                              
-        return [dp[pre][after] for pre,after in queries]
-                    
+        for i in range(len(indegree)):
+            if indegree[i] == 0:
+                queue.append(i)
+        
+        while(queue):
+            parent = queue.popleft()
+            for child in graph[parent]:
+                self.addParent(child,parent,graph,ancestor)
+                indegree[child]-=1
+                if indegree[child]==0:
+                    queue.append(child)
+        answer = []
+        for pre,after in queries:
+            answer.append(pre in ancestor[after])
+        return answer
+        
+        
+        
