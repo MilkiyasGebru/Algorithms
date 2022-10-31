@@ -9,7 +9,7 @@ class Solution:
         
         for row in range(1,len(matrix)):
             
-            for col in range(len(matrix[0])):
+            for col in range(1,len(matrix[0])):
                 
                 if self.isValid(row-1,col-1,len(matrix),len(matrix[0])) and matrix[row][col]!=matrix[row-1][col-1]:
                     return False
