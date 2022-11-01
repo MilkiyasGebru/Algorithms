@@ -5,40 +5,24 @@ class Solution:
     
     def findBall(self, grid: List[List[int]]) -> List[int]:
         
-        falls_array = []
-        
-        for col in range(len(grid[0])):
-            falls_array.append([0,col])
+        falls_array = [col for col in range(len(grid[0]))]
         
         for row in range(len(grid)):
 
             for col in range(len(grid[0])):
                 
-                if falls_array[col] == False:
+                if falls_array[col] == -1:
                     continue
                     
-                r = falls_array[col][0]
-                c = falls_array[col][1]
+                c = falls_array[col]
                 
-                if self.check(r,c+ grid[r][c],len(grid),len(grid[0])) and grid[r][c] == grid[r][c + grid[r][c]]:
-                    falls_array[col] = [r+1,c+grid[r][c]]
+                if self.check(row,c+ grid[row][c],len(grid),len(grid[0])) and grid[row][c] == grid[row][c + grid[row][c]]:
+                    falls_array[col] = c+grid[row][c]
                     
                 else:
                     
-                    falls_array[col]=False
+                    falls_array[col]=-1
                 
-        answer = []
-        
-        for col in range(len(falls_array)):
-            
-            if falls_array[col]!=False:
-                
-                answer.append(falls_array[col][1])
-                
-            else:
-                
-                answer.append(-1)
-                
-        return answer
+        return falls_array
                     
                 
