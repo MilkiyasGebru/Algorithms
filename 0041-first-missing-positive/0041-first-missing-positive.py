@@ -5,4 +5,4 @@ class Solution:
             if num > 0 and num <= len(nums):
                 mask |= (1 << num)
         mask >>= 1
-        return len(bin((mask|(mask+1))^(mask)))-2
+        return int(log2((mask|(mask+1))^(mask))) + 1
