@@ -12,7 +12,7 @@ class Solution:
         
         i = 0
         
-        while( i < len(tasks)):
+        while( i < len(tasks) or heap):
             
             if len(heap) == 0:
                 time = max(time, tasks[i][0])
@@ -23,15 +23,13 @@ class Solution:
                 
                 i+=1
                 
-            if heap :
-                a,b = heapq.heappop(heap)
-                
-                time += a 
-                answer.append(b)
-                
-        while(heap):
+            
             a,b = heapq.heappop(heap)
+                
+            time += a 
             answer.append(b)
+                
+        
         
         return answer
             
