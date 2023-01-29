@@ -13,7 +13,7 @@ class Solution:
             dp[i][total] = True
         
         for i in range(len(nums)-2,-1,-1):
-            for s in range(total,-1,-1):
+            for s in range(0,total+1):
                 
                 if s + nums[i] <= total:
                     dp[i][s] = dp[i+1][s] or dp[i+1][s+nums[i]]
