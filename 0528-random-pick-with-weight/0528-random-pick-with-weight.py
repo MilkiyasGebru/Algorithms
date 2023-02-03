@@ -15,9 +15,9 @@ class Solution:
         randomNum = random.randint(1,self.total)
 
         
-        return self.binary(randomNum)
+        return self.binarySearch(randomNum)
     
-    def binary(self,val):
+    def binarySearch(self,val):
         
         left = 0
         right = len(self.weightIndex)-1
