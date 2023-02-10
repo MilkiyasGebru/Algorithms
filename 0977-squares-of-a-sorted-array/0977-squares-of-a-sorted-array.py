@@ -1,30 +1,17 @@
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
         answer = []
-        postive = len(nums)
-        negative = -1 
+        left = 0
+        right = len(nums)-1
         
-        for i in range(len(nums)):
+        while(left <= right):
             
-            if nums[i] < 0:
-                
-                negative = max(negative, i)
-                
+            if abs(nums[left]) > abs(nums[right]):
+                answer.append(nums[left] * nums[left])
+                left += 1
             else:
-                
-                postive = min(postive, i)
+                answer.append(nums[right] * nums[right])
+                right -= 1
         
-                
-        while(negative > -1 or postive < len(nums)):
-            if negative == -1 or( postive < len(nums) and nums[postive] < abs(nums[negative])):
-                
-                answer.append(nums[postive]*nums[postive])
-                postive += 1
-                
-            else:
-                
-                answer.append(nums[negative]*nums[negative])
-                negative -= 1
-            
-        
+        answer.reverse()
         return answer
