@@ -6,7 +6,7 @@ class Solution:
             return s == s[::-1]
         
         @lru_cache(None)
-        def partition( s: str) -> List[List[str]]:
+        def partition( s: str) -> int:
         
             answer = len(s)
 
