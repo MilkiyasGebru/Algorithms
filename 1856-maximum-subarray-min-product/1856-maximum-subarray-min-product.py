@@ -4,7 +4,7 @@ class Solution:
         monotonic_stack = []
         answer = 0
         mod = 10**9 + 7
-        
+        nums.append(0)
         for num in nums:
             
             prev = 0
@@ -17,12 +17,7 @@ class Solution:
                 
             monotonic_stack.append((num,num+prev))
             
-        prev = 0
-        
-        for i in range(len(monotonic_stack)-1,-1,-1): 
-            
-            prev +=  monotonic_stack[i][1]
-            answer = max(answer, (monotonic_stack[i][0]*prev))
+
         
         
         return answer%mod
