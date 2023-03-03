@@ -4,13 +4,13 @@ class Solution:
         f = {}
         
         arr = []
-        answer = []
+        answer = [-1 for _ in range(len(nums))]
         
         for i in range(len(nums)):
             
             while ( len(arr) > 0 and nums[arr[-1]] < nums[i]):
                 
-                f[arr[-1]] = nums[i]
+                answer[arr[-1]] = nums[i]
                 arr.pop()
                 
             arr.append(i)
@@ -19,16 +19,9 @@ class Solution:
             
             while( len(arr) > 0 and nums[arr[-1]] < nums[i]):
                 
-                f[arr[-1]] = nums[i]
-                arr.pop()
-        
+                answer[arr[-1]] = nums[i]
+                arr.pop()        
             
-        for i in range(len(nums)):
-            
-            if i in f:
-                answer.append(f[i])
-            else:
-                answer.append(-1)
         
         return answer
             
