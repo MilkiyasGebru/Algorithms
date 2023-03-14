@@ -3,32 +3,26 @@ class Solution:
         
         
         graph = defaultdict(list)
-        answer = [1 for i in range(n)]
-        visited = set()
+        answer = [0 for i in range(n)]
+        # visited = set()
         
         for u,v in edges:
             
             graph[u].append(v)
             graph[v].append(u)
         
-        def rec(node):
+        def rec(child,parent,count):
             
-            string = Counter()
+            before = count[labels[child]]
+            count[labels[child]] += 1
             
-            if node not in visited:
-                
-                visited.add(node)
-
-                string[labels[node]] = 1
-                for neigbour in graph[node]:
-
-                    string += rec(neigbour)
-
-                answer[node] = string[labels[node]]
+            for neigbour in graph[child]:
+                if neigbour != parent:
+                    rec(neigbour,child,count)
             
-            return string
+            answer[child] = count[labels[child]] - before
         
-        rec(0)
+        rec(0,0,defaultdict(int))
         return answer
             
             
