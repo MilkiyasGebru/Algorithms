@@ -5,23 +5,28 @@ class Solution:
         graph = defaultdict(list)
         answer = [1 for i in range(n)]
         visited = set()
+        
         for u,v in edges:
+            
             graph[u].append(v)
             graph[v].append(u)
         
         def rec(node):
             
-            if node in visited:
-                return ""
-            visited.add(node)
-            string = ""
-            for neigbour in graph[node]:
+            string = Counter()
+            
+            if node not in visited:
                 
-                string += rec(neigbour)
+                visited.add(node)
+
+                string[labels[node]] = 1
+                for neigbour in graph[node]:
+
+                    string += rec(neigbour)
+
+                answer[node] = string[labels[node]]
             
-            answer[node] += string.count(labels[node])
-            
-            return string+labels[node]
+            return string
         
         rec(0)
         return answer
