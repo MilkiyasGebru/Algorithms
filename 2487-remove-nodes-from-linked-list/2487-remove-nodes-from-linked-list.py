@@ -6,18 +6,20 @@
 class Solution:
     def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
         
-        dummy_node = ListNode(float('inf'),head)
-        stack =[dummy_node]
         
-        while(head):
+        def rec(node):
             
-            while(stack and stack[-1].val < head.val):
+            if not node.next:
+                return node
+            
+            right_max = rec(node.next)
+            
+            if node.val >= right_max.val:
                 
-                node = stack.pop()
+                node.next = right_max
+                return node
             
-            stack[-1].next = head
-            stack.append(head)
-            
-            head = head.next
+            return right_max
         
-        return dummy_node.next
+        return rec(head)
+        
