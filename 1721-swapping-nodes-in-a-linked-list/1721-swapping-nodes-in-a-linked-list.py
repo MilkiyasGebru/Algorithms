@@ -7,11 +7,19 @@ class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         array = []
         
-        while(head):
-            
-            array.append(head)
-            head = head.next
+        dummy_node = head
+        first = second = head
         
-        array[k-1].val,array[-k].val = array[-k].val,array[k-1].val
-        return array[0]
+        for _ in range(k-1):
+            first = first.next 
+        saved_node = first
+        
+        while(saved_node.next):
+            saved_node = saved_node.next
+            second = second.next
+            
+        first.val,second.val = second.val,first.val
+        return dummy_node
+        
+        
         
