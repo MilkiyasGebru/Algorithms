@@ -6,38 +6,23 @@
 class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         
-        dummy_node = ListNode(float("-inf"),head)
+        start = less = ListNode()
+        start2 = great = ListNode()
         
-        def rec(node):
+        while(head):
             
-            if not node.next:
+            if head.val < x:
                 
-                if node.val < x:
-                    
-                    return node,None 
+                less.next = head
+                less = less.next
                 
-                return None,node
+            else:
                 
+                great.next = head
+                great = great.next
             
-            less,great = rec(node.next)
+            head = head.next
             
-            if node.val < x:
-                
-                node.next = less
-                return node,great
-            
-            node.next = great
-            
-            return less,node
-        
-        less,great = rec(dummy_node)
-        
-        head = less
-        
-        while(less.next):
-            
-            less = less.next
-        
-        less.next = great
-        return head.next
-            
+        great.next = None
+        less.next = start2.next
+        return start.next
