@@ -10,20 +10,30 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    
+    def findPath(self,node,head):
+        
+        
+        if not head:
+            return True
+        
+        if not node:
+            return False
+        
+        if node.val != head.val:
+            return False
+        
+        return self.findPath(node.left,head.next) or self.findPath(node.right,head.next)
+    
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
         
-        self.head2 = head
-        @lru_cache(None)
-        def rec(node,linkedHead):
+        def rec(node,head):
             
-            if not linkedHead:
-                return True
             if not node:
                 return False
             
-            if linkedHead.val == node.val:
-                return rec(node.left,linkedHead.next) or rec(node.right,linkedHead.next) or rec(node.left,self.head2) or rec(node.right,self.head2)
+            return self.findPath(node,head) or rec(node.left,head) or rec(node.right,head)
             
-            return  rec(node.left,self.head2) or rec(node.right,self.head2)
+           
         
         return rec(root,head)
