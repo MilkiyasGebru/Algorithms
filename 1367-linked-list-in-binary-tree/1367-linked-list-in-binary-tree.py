@@ -27,13 +27,9 @@ class Solution:
     
     def isSubPath(self, head: Optional[ListNode], root: Optional[TreeNode]) -> bool:
         
-        def rec(node,head):
-            
-            if not node:
-                return False
-            
-            return self.findPath(node,head) or rec(node.left,head) or rec(node.right,head)
-            
-           
+        if not root:
+            return False
         
-        return rec(root,head)
+        return self.findPath(root,head) or self.isSubPath(head,root.left) or self.isSubPath(head,root.right)
+        
+        
