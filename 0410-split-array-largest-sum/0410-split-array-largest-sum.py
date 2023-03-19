@@ -1,29 +1,38 @@
 class Solution:
+    
+    def condition(self,nums,size) -> bool:
+        
+        total = new_k = 0
+        for num in nums:
+            
+            if total + num > size:
+                new_k += 1
+                total = 0
+            
+            total += num
+        
+        return new_k if total == 0 else new_k + 1
+                
+        
         
     def splitArray(self, nums: List[int], k: int) -> int:
         
-        @lru_cache(None)
+        left,right = max(nums),sum(nums)
         
-        def dp(i,length):
+        while left < right:
             
-            if length == 1:
-                return sum(nums[i:])
+            mid = (left + right)//2
             
-            ans  = math.inf
-            
-            for size in range(1,len(nums)-i + 1):
+            if self.condition(nums,mid) <= k:
                 
-                
-                max_split = max(sum(nums[i:i+size]),dp(i+size,length-1))
-    
-                if max_split > ans:
-                    break
-                
-                ans = max_split
+                right = mid 
             
-            return ans
+            else:
+                
+                left = mid + 1
+            
         
-        return dp(0,k)
+        return left 
             
         
         
