@@ -14,9 +14,6 @@ class Solution:
     
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
         
-        queue = deque([(0,0)])
-        edges_changed = 0
-        visited = set()
         
         graph = defaultdict(list)
         
