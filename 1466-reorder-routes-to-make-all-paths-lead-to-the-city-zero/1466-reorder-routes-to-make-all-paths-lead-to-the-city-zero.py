@@ -1,4 +1,17 @@
 class Solution:
+    
+    def dfs(self,node,parent,graph):
+        
+        
+        edges_changed = 0
+        
+        for neigbour,val in graph[node]:
+            if neigbour != parent:
+                edges_changed += val + self.dfs(neigbour,node,graph)
+        
+        return edges_changed
+    
+    
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
         
         queue = deque([(0,0)])
@@ -12,18 +25,5 @@ class Solution:
             graph[u].append([v,1])
             graph[v].append([u,0])
         
-        while(queue):
-            
-            node,value = queue.popleft()
-            
-            if node in visited:
-                continue
-            visited.add(node)
-            edges_changed += value
-            
-            for neigbour,val in graph[node]:
-                
-                queue.append((neigbour,val))
-            
-        return edges_changed
+        return self.dfs(0,-1,graph)
             
