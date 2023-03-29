@@ -2,8 +2,8 @@ class Solution:
     def maxTotalFruits(self, fruits: List[List[int]], startPos: int, k: int) -> int:
         
         total_fruit =   0 
-        fruits_position = [0 for _ in range(max(fruits[-1][0]+1,startPos + k+1))]
-        left , right = startPos,startPos+k
+        fruits_position = [0 for _ in range(max(fruits[-1][0]+1,startPos + 1))]
+        left , right = startPos, min(len(fruits_position)-1,startPos + k)
         
         for i in range(len(fruits)):
             
@@ -14,7 +14,6 @@ class Solution:
                 
         answer = total_fruit
         while left >= 1 and right >= startPos:
-            
             total_fruit += fruits_position[left-1]
             left -= 1
             
