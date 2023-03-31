@@ -10,11 +10,11 @@ class Solution:
             ans = f[(n,m)]
             
             # horizontal cut
-            for i in range(1,n):
-                ans = max(ans,  findMax(i,m) + findMax(n-i,m) )
+            for i in range(1,n//2 + 1):
+                ans = max(ans,  findMax(i,m) + findMax(n-i,m))
             
             # vertical cut
-            for i in range(1,m):
+            for i in range(1,m//2 + 1):
                 ans = max(ans,  findMax(n,i) + findMax(n,m-i))
             
             return ans
