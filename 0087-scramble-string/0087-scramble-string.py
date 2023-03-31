@@ -7,7 +7,7 @@ class Solution:
             if s == ""  or sorted(s) != sorted(s2[left:right+1]):
                 return False
                 
-            if s == s2[left:right+1]:
+            if len(s) <= 3:
                 return True
             
             x = False
