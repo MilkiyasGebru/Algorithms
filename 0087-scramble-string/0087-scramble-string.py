@@ -4,7 +4,7 @@ class Solution:
         @lru_cache(None)
         def rec(s,left,right):
             
-            if s == "" or s2[left:right+1] == "":
+            if s == ""  or sorted(s) != sorted(s2[left:right+1]):
                 return False
                 
             if s == s2[left:right+1]:
