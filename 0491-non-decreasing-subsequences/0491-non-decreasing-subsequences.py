@@ -1,16 +1,21 @@
 class Solution:
     def findSubsequences(self, nums: List[int]) -> List[List[int]]:
         
-        self.answer = set()
+        visited =  set()
         
-        def backtrack(index,ans):
+        
+        def backTrack(index,path):
             
-            if len(ans) >= 2:
-                self.answer.add(tuple(ans))
+            if len(path) > 1:
+                visited.add(tuple(path))
+            
+            if index == len(nums):
+                return
+            
             for i in range(index,len(nums)):
                 
-                if ans == [] or nums[i] >= ans[-1]:
-                    backtrack(i+1,ans+[nums[i]])
+                if (not path or path[-1] <= nums[i]) and tuple(path + [nums[i]]) not in visited:
+                    backTrack(i+1,path+[nums[i]])
         
-        backtrack(0,[])
-        return self.answer
+        backTrack(0,[])
+        return visited
