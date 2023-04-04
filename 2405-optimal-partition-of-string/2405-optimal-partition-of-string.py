@@ -1,15 +1,18 @@
 class Solution:
     def partitionString(self, s: str) -> int:
         
-        prev = set()
+        last = defaultdict(lambda  : -1)
+        last_partion = 0
         partions = 1
         
         for i in range(len(s)):
-            if s[i] in prev:
-                prev = set(s[i])
+            
+            if last[s[i]] >= last_partion:
+                
+                last_partion = i
                 partions += 1
-            else:
-                prev.add(s[i])
+                
+            last[s[i]] = i
         
         return partions
         
