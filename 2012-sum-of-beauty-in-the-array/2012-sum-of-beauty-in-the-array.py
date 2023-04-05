@@ -15,10 +15,11 @@ class Solution:
         for i in range(1,len(nums)-1):
             
             if left_max < nums[i] < right_array[i+1]:
-                
                 answer += 2
+                
             elif nums[i-1] < nums[i] < nums[i+1]:
                 answer += 1
+                
             left_max = max(left_max,nums[i])
         
         return answer
