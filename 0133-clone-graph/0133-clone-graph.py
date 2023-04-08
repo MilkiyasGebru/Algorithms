@@ -7,22 +7,23 @@ class Node:
 """
 
 class Solution:
+    
+    def makeGraph(self,node,f):
+        
+        if not node:
+            return None
+        
+        if node.val not in f:
+            
+            f[node.val] = Node(node.val)
+            
+            for neigbour in node.neighbors:
+                
+                f[node.val].neighbors.append(self.makeGraph(neigbour,f))
+            
+        return f[node.val]
+    
     def cloneGraph(self, node: 'Node') -> 'Node':
         
-        f = {}
         
-        def make(node):
-            
-            if not node:
-                return None
-            
-            if node.val not in f:
-                
-                f[node.val] = Node(node.val)
-            
-                for neigbour in node.neighbors:
-                    f[node.val].neighbors.append(make(neigbour))
-            
-            return f[node.val]
-        
-        return make(node)
+        return self.makeGraph(node,{})
