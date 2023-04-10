@@ -8,7 +8,7 @@ class Solution:
     def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
         
     
-        
+        global_dict = {}
         visited = [0 for i in range(len(colors))]
         graph = defaultdict(list)
         answer = 0
@@ -17,35 +17,36 @@ class Solution:
             
             graph[u].append(v)
         
-        @lru_cache(None)
         def dfs(node):
             
             if visited[node] == 1:
-                return defaultdict(lambda : inf)
+                return math.inf
             
             if visited[node] == 2:
-                return f[node]
+                return global_dict[node][ord(colors[node])-ord("a")]
             
-            f = defaultdict(int)
+            global_dict[node] = defaultdict(int)
             visited[node] = 1
             
             for child in graph[node]:
                 
-                self.findMax(f,dfs(child))
+                if dfs(child) == math.inf:
+                    return math.inf
+                
+                self.findMax(global_dict[node],global_dict[child])
                 
             visited[node] = 2
-                
-                
-            f[ord(colors[node])-ord("a")] += 1
-            return f
+            global_dict[node][ord(colors[node])-ord("a")] += 1
+            
+            return global_dict[node][ord(colors[node])-ord("a")]
+        
         
         for i in range(len(colors)):
-            if visited[i] == 0:
-                answer = max(max(dfs(i).values()),answer)
-                if answer == inf:
-                    return -1
+            
+            answer = max(dfs(i),answer)
+            
         
-        return answer 
+        return answer if answer != math.inf else -1
             
         
         
