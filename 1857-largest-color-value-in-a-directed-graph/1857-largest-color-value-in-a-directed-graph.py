@@ -42,8 +42,10 @@ class Solution:
         for i in range(len(colors)):
             if visited[i] == 0:
                 answer = max(max(dfs(i).values()),answer)
+                if answer == inf:
+                    return -1
         
-        return answer if answer != math.inf else -1
+        return answer 
             
         
         
