@@ -44,9 +44,10 @@ class Solution:
         for i in range(len(colors)):
             
             answer = max(dfs(i),answer)
-            
+            if answer == math.inf:
+                return -1
         
-        return answer if answer != math.inf else -1
+        return answer 
             
         
         
