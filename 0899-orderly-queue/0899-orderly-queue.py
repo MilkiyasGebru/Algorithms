@@ -3,13 +3,5 @@ class Solution:
         
         if k > 1:
             return "".join(sorted(s))
-        q = deque()
-        for i in s:
-            q.append(i)
         
-        answer = "".join(q)
-        for i in range(len(s)-1):
-            letter = q.popleft()
-            q.append(letter)
-            answer = min(answer,"".join(q))
-        return answer
+        return min(s[i:]+s[:i] for i in range(len(s)))
