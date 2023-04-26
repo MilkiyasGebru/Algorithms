@@ -7,20 +7,16 @@ class Solution:
             graph[u].append(v)
             graph[v].append(u)
             
-        self.time = 0
         def dfs(node,parent):
-            apple = False
+            cost = 0
             
             for child in graph[node]:
+                
                 if child != parent:
-                    check = dfs(child,node)
-                    if check:
-                        self.time += 2
-                    apple = check or apple
+                    child_cost = dfs(child,node)
                     
-            
-            
-            return hasApple[node] or apple
+                    if child_cost or hasApple[child]:
+                        cost += 2 + child_cost
+            return cost
         
-        dfs(0,-1)
-        return self.time
+        return dfs(0,-1)
