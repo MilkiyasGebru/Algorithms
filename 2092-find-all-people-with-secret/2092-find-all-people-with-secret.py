@@ -34,8 +34,8 @@ class Solution:
         
         secret = UnionFind(n)
         graph = defaultdict(list)
-        answer = set([0,firstPerson])
         secret.union(0,firstPerson)
+        
         for i in range(len(meetings)):
             
             graph[meetings[i][2]].append((meetings[i][0],meetings[i][1]))
@@ -47,17 +47,13 @@ class Solution:
                 
             for u,v in graph[key]:
                 
-                if secret.findParent(u) == secret.findParent(0):
+                if secret.findParent(u) != secret.findParent(0):
                     
-                    answer.add(u)
-                    answer.add(v)
-                    
-                else:
                     
                     secret.parent[u] = u
                     secret.parent[v] = v
                     secret.size[u] =secret.size[v] = 1 
             
-        return answer
+        return [i for i in range(n) if secret.findParent(i) == secret.findParent(0)]
             
         
