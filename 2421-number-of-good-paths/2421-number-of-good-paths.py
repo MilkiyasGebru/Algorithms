@@ -20,13 +20,13 @@ class UnionFind:
         
         self.rank[parent1] += self.rank[parent2]
         self.parent[parent2] = parent1
-        ans = self.f[parent1][value]*self.f[parent2][value]
+        paths = self.f[parent1][value]*self.f[parent2][value]
         self.f[parent1][value] += self.f[parent2][value]
-        return ans
+        return paths
     
 class Solution:
     def numberOfGoodPaths(self, vals: List[int], edges: List[List[int]]) -> int:
-        answer = len(vals)
+        goodPaths = len(vals)
         graph = UnionFind(len(vals))
         
         for i in range(len(edges)):
@@ -38,7 +38,8 @@ class Solution:
         edges.sort(key = lambda x : x[2])
         
         for u,v,val in edges:
-            answer += graph.unionNode(u,v,val)
-        return answer
+            goodPaths += graph.unionNode(u,v,val)
+            
+        return goodPaths
         
         
