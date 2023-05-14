@@ -18,17 +18,17 @@ class Solution:
         arr.sort()
         
         @lru_cache(None)
-        def dp(i,mask):
-            if i == len(arr) or bin(mask).count("1") == len(nums):
+        def dp(i,mask,count):
+            if i == len(arr) or count == len(nums)//2 + 1:
                 return 0
             
-            count = bin(mask).count("1")
-            if count + 2 == bin(mask^arr[i][1]).count("1"):
-                return max(((count+2)//2)*arr[i][0] + dp(i+1,mask^arr[i][1]),dp(i+1,mask))
+            if not (mask & arr[i][1]):
+                
+                return max(count*arr[i][0] + dp(i+1,mask^arr[i][1],count+1),dp(i+1,mask,count))
             
-            return dp(i+1,mask)
+            return dp(i+1,mask,count)
         
-        return dp(0,0)
+        return dp(0,0,1)
         
             
                             
