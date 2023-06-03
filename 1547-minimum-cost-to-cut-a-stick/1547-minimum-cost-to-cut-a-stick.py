@@ -10,9 +10,8 @@ class Solution:
             
             answer = math.inf
             
-            for i in range(len(cuts)):
-                if cuts[left_end] < cuts[i] < cuts[right_end]:
-                    answer = min(answer, cuts[right_end]-cuts[left_end] + rec(left_end,i) + rec(i,right_end))
+            for i in range(left_end+1,right_end):
+                answer = min(answer, cuts[right_end]-cuts[left_end] + rec(left_end,i) + rec(i,right_end))
             
             return answer if answer != math.inf else 0
         
