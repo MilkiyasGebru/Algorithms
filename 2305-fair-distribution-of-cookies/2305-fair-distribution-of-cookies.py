@@ -1,26 +1,18 @@
 class Solution:
     def distributeCookies(self, cookies: List[int], k: int) -> int:
-
-        def binary_search(left: int, right: int, fn: callable) -> int:
-            while left < right:
-                mid = left + right >> 1
-                left, right = (mid + 1, right) if fn(mid) else (left, mid)
-            return left
-
-        def condition(limit: int) -> bool:
-
-            def dfs(i: int) -> bool:
-                if i == len(cookies):
-                    return True
-                for j in range(k):
-                    if bags[j] + cookies[i] <= limit:
-                        bags[j] += cookies[i]
-                        if dfs(i + 1):
-                            return True
-                        bags[j] -= cookies[i]
-                return False
-
-            bags = [0] * k
-            return not dfs(0)
-
-        return binary_search(max(cookies), sum(cookies), condition)
+        self.maxx = math.inf
+        cookies.sort(reverse=True)
+        def backTrack(index,arr):
+            
+            if index == len(cookies):
+                self.maxx = min(self.maxx,max(arr))
+                return 
+            
+            for i in range(len(arr)):
+                if arr[i] + cookies[index] < self.maxx:
+                    arr[i] += cookies[index]
+                    backTrack(index+1,arr)
+                    arr[i] -= cookies[index]
+        backTrack(0,[0 for _ in range(k)])
+        return self.maxx
+            
