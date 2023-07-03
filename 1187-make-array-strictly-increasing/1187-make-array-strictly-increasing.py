@@ -19,17 +19,19 @@ class Solution:
             
             if i == len(arr1):
                 return 0
-            minn = math.inf
+            
+            cost = math.inf
             if arr1[i] > prev_max:
-                minn = dp(i+1,arr1[i])
+                cost = dp(i+1,arr1[i])
             
             idx = self.binarySearch(arr2,prev_max)
             if idx < len(arr2):
-                minn = min(1+dp(i+1,arr2[idx]),minn)
+                cost = min(1+dp(i+1,arr2[idx]),cost)
             
-            return minn
+            return cost
+        min_cost = dp(0,-math.inf)
             
-        return dp(0,-math.inf) if dp(0,-math.inf) != math.inf else -1
+        return min_cost if min_cost != math.inf else -1
         
 
             
