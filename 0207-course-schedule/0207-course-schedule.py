@@ -1,38 +1,28 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
-        colors = [0 for _ in range(numCourses)]
+        inDegree = [0 for _ in range(numCourses)]
         graph = defaultdict(list)
+        courses = 0
+        for ai,bi in prerequisites:
+            graph[bi].append(ai)
+            inDegree[ai] += 1
         
-        for course1,course2 in prerequisites:
-            graph[course2].append(course1)
-        
-        def dfs(course):
-            
-            colors[course] = 1
-            answer = True
-            
-            for neigbour in graph[course]:
-                
-                if colors[neigbour] == 0:
-                    answer = answer and dfs(neigbour)
-                    
-                elif colors[neigbour] == 1:
-                    answer = False
-                    break
-                    
-            colors[course] = 2
-            
-            return answer
-        
-        answer = True
-        
+        queue = deque()
         for course in range(numCourses):
-            
-            answer = answer and dfs(course)
+            if inDegree[course] == 0:
+                queue.append(course)
         
-        return answer
-                
-                
+        while queue:
             
-            
+            size = len(queue)
+            for _ in range(size):
+                course = queue.popleft()
+                courses += 1
+                for ai in graph[course]:
+                    inDegree[ai] -= 1
+                    if inDegree[ai] == 0:
+                        queue.append(ai)
+        
+        return courses == numCourses
+        
