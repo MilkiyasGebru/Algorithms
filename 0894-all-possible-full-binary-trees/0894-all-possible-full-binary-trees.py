@@ -5,23 +5,28 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    def nodeCopier(self,node):
+        if node == None:
+            return None
+        newNode = TreeNode(0,self.nodeCopier(node.left),self.nodeCopier(node.right))
+        return newNode
     def allPossibleFBT(self, n: int) -> List[Optional[TreeNode]]:
-        if n%2 == 0 :
+        
+        if n % 2 == 0:
             return []
-        def rec(n):
+        
+        def dp(n):
             if n == 1:
-                return [TreeNode()]
-            ans  =[]
+                return [TreeNode(0)]
+            nodes = []
             for i in range(1,n,2):
-                a = rec(i)
-                b = rec(n-i-1)
-                for k in range(len(a)):
-                    
-                    for j in range(len(b)):
-                        node = TreeNode()
-                        node.left = a[k]
-                        node.right = b[j]
-                        ans.append(node)
-                        
-            return ans
-        return rec(n)
+                leftNodes = dp(i)
+                rightNodes = dp(n-1-i)
+                for leftNode in leftNodes:
+                    for rightNode in rightNodes:
+                        nodes.append(TreeNode(0,self.nodeCopier(leftNode),self.nodeCopier(rightNode)))
+            
+            return nodes
+        
+        return dp(n)
+                
