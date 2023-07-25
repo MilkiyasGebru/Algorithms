@@ -1,7 +1,7 @@
 class Solution:
     def palindromePartition(self, s: str, k: int) -> int:
         
-        
+        @cache
         def checkPalindrom(i1,i2):
             
             count = 0
