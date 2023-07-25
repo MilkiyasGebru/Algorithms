@@ -1,30 +1,15 @@
-class Solution:
-    
-    
-        
+class Solution:   
     def checkPartitioning(self, s: str) -> bool:
         
-        @cache
-        def checkPalindrom(i1,i2):
-            if i1 >= i2:
-                return True
-            if s[i1] != s[i2]:
-                return False
-            return checkPalindrom(i1+1,i2-1)
-            
-        
-        @cache
-        def dp(i,part):
-            if part > 3:
-                return False
-            if i == len(s):
-                return part == 3
-            answer = False
+        dp = [[True for _ in range(len(s)+1)] for _ in range(len(s)+1)]
+        for i in range(len(s)-1,-1,-1):
             for j in range(i,len(s)):
-                if checkPalindrom(i,j) :
-                    answer = answer or dp(j+1,part+1)
-            
-            return answer
-        return dp(0,0)
-            
+                dp[i][j] = (s[i] == s[j]) and dp[i+1][j-1]
+
+        for i in range(len(s)-2):
+            for j in range(i+1,len(s)-1):
+                if dp[0][i] and dp[i+1][j] and dp[j+1][len(s)-1]:
+                    return True
+       
+        return False
         
