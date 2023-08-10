@@ -19,13 +19,28 @@ class Solution:
                 
     def findRadius(self, houses: List[int], heaters: List[int]) -> int:
         
+        possibles = []
+        house_range = len(houses)
+        heater_range = len(heaters)
         houses.sort()
         heaters.sort()
-        radius = 0
-        
-        for house in houses:
-            radius = max(radius, self.binary_search(heaters,house))
-        
-        return radius
+
+        start = 0
+
+        for i in range(house_range):
+            mn = float('inf')
+            for j in range(start, heater_range):
+                radius = abs(houses[i] - heaters[j])
+                if mn > radius:
+                    start = j 
+                    mn = radius
+                elif radius > mn:
+                    break
+            possibles.append(mn)
+        answer = 0
+        for possible in possibles:
+            if possible != float('inf'):
+                answer = max(answer,possible)
+        return answer
         
         
