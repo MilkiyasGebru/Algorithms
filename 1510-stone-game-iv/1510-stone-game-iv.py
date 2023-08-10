@@ -7,9 +7,6 @@ class Solution:
             if n == 0:
                 return False
             
-            if floor(n**0.5)**2 == n:
-                return True
-            
             maxNum = floor(n**0.5)
             best_answer = False
             
