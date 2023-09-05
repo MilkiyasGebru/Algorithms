@@ -10,19 +10,21 @@ class Node:
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         
-        f = defaultdict(int)
-        
-        def dfs(node):
+        visited = {}
+        def copy_node(node):
             
-            if node == None:
+            if not node:
                 return None
-            if f[node] != 0:
-                return f[node]
-            new_node = Node(node.val)
-            f[node] = new_node
-            new_node.next = dfs(node.next)
-            new_node.random = dfs(node.random)
-            return f[node]
-        
-        return dfs(head)
             
+            if node in visited:
+                return visited[node]
+            
+            new_node = Node(node.val)
+            visited[node] = new_node
+            new_node.next= copy_node(node.next)
+            new_node.random = copy_node(node.random)
+            
+            
+            return visited[node]
+        
+        return copy_node(head)
