@@ -1,20 +1,22 @@
 class Solution:
     def mctFromLeafValues(self, arr: List[int]) -> int:
         
-        @lru_cache(None)
-        def rec(left,right):
+        @cache
+        def dp(left,right):
             
             if left == right:
                 return 0
-            if left + 1 == right:
-                return arr[left]*arr[right]
-            ans = math.inf
-            
-            for index in range(left,right):
-                ans = min(  ans ,
-                          rec(left,index) + rec(index+1,right) + max(arr[left:index+1])*max(arr[index+1:right+1]))
-            
-            return ans
         
-        return rec(0,len(arr)-1)
+            # left_pick
+            answer = math.inf
+            maxx = arr[left]
             
+            for i in range(left,right):
+                
+                maxx = max(arr[i],maxx)
+                answer = min( answer, maxx*max(arr[i+1:right+1]) + dp(left,i) + dp(i+1,right))
+            
+            return answer
+        
+        return dp(0,len(arr)-1)
+                
