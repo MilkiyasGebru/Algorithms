@@ -1,37 +1,26 @@
 class Solution:
-    
-    def condition(self,weights,maxx,days):
-        
-        total = day =  0
-        
+    def count_days(self,weights,capacity):
+        days = 0
+        total_weight = 0
         for weight in weights:
             
-            if total + weight > maxx:
-                
-                day += 1
-                total = 0
-                
-            total += weight
-        day += 1 if total != 0 else 0
+            if total_weight + weight > capacity:
+                days += 1
+                total_weight =0 
+            total_weight += weight
         
-        return day <= days
-    
+        return days if total_weight == 0 else days + 1
+        
     def shipWithinDays(self, weights: List[int], days: int) -> int:
         
-        left, right = max(weights), sum(weights)
+        left , right = max(weights),sum(weights) + 1
         
         while left < right:
             
-            mid = (left + right )//2
-            
-            if self.condition(weights,mid,days):
-                
+            mid = ( left + right)//2
+            if self.count_days(weights,mid) <= days:
                 right = mid
-                
             else:
-                
                 left = mid + 1
         
-        return left 
-        
-        
+        return left
