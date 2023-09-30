@@ -23,20 +23,21 @@ class TrieTree:
         curr_node.isend = True
     
     def traverse(self,product):
-        
+        answer = [[] for _ in range(len(product))]
         curr_node = self.root
         
-        for character in product:
-            index = ord(character) - ord("a")
+        for i in range(len(product)):
+            index = ord(product[i]) - ord("a")
             
             if not curr_node.children[index]:
-                return []
+                break
             
             curr_node = curr_node.children[index]
-        suggested_words = []
-        self.suggest(curr_node,product,suggested_words)
+            suggested_words = []
+            self.suggest(curr_node,product[0:i+1],suggested_words)
+            answer[i].extend(suggested_words)
         
-        return suggested_words
+        return answer
     
     def suggest(self,node,pre,answer):
         if len(answer) >= 3:
@@ -56,13 +57,10 @@ class Solution:
     def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
         
         
-        answer = []
+        
         trie = TrieTree()
         for product in products:
             trie.add_product(product)
         
         
-        for i in range(len(searchWord)):
-            answer.append(trie.traverse(searchWord[0:i+1]))
-        
-        return answer
+        return trie.traverse(searchWord)
