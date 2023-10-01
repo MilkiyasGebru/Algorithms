@@ -1,25 +1,19 @@
 class Solution:
     def find132pattern(self, nums: List[int]) -> bool:
         
-        minimums = [nums[0]]
+        min_element = math.inf
         stack = []
         
-        for i in range(1,len(nums)):
+        for num in nums:
             
-            minimums.append(min(nums[i],minimums[-1]))
-        
-        
-        for i in range(len(nums)):
-            
-            while (stack and nums[stack[-1]] <= nums[i]):
-                
+            while stack and stack[-1][0] <= num:
                 stack.pop()
             
-            if stack and minimums[stack[-1]] < nums[i] < nums[stack[-1]]:
+            if stack and stack[-1][1] < stack[-1][0] > num and num > stack[-1][1]:
                 return True
             
-            stack.append(i)
+            stack.append((num,min_element))
+            min_element = min(min_element,num)
         
         return False
-                
-                
+        
