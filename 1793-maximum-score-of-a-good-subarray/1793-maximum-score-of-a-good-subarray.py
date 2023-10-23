@@ -1,27 +1,23 @@
 class Solution:
     def maximumScore(self, nums: List[int], k: int) -> int:
+        
         nums.append(-math.inf)
         score = 0
-        min_queue = deque()
+        min_stack = []
         
-        for i in range(k+1):
+        for right in range(len(nums)):
             
-            index = math.inf
-            while min_queue and min_queue[-1][0] > nums[i]:
+            left = math.inf
+            
+            while min_stack and min_stack[-1][0] > nums[right]:
                 
-                value,index = min_queue.pop()
-            min_queue.append((nums[i],min(i,index)))
-            
-        for i in range(k+1,len(nums)):
-            
-            index = math.inf
-            
-            while min_queue and min_queue[-1][0] > nums[i]:
+                value,left = min_stack.pop()
                 
-                value,index = min_queue.pop()
-                if index <= k:
-                    score = max(score, value*(i - index ))
                 
-            min_queue.append((nums[i],min(i,index)))
+                if left <= k and right > k:
+                    score = max(score, value*(right - left ))
+                    
+            min_stack.append((nums[right],min(right,left)))
+        
         return score
             
