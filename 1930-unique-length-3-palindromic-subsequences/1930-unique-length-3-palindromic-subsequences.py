@@ -1,22 +1,23 @@
 class Solution:
     def countPalindromicSubsequence(self, s: str) -> int:
         
+        first = [len(s) for _ in range(26)]
+        last = [-len(s) for _ in range(26)]
         
-        
-        position = defaultdict(list)
         for i in range(len(s)):
-            position[ord(s[i])].append(i)
-        answer = 0
-        # return
-        for i in range(ord("a"),ord("a")+26):
-            if len(position[i]) < 2:
-                continue
-            for j in range(ord("a"),ord("a")+26):
+            
+            val = ord(s[i])-ord('a')
+            first[val] = min(first[val],i)
+            last[val] = max(last[val],i)
+            
+        total_palindroms = 0
+        
+        for i in range(26):
+            
+            between = set()
+            for j in range(first[i]+1,last[i]):
+                between.add(s[j])
                 
-                for index in position[j]:
-                    if position[i][0] < index < position[i][-1]:
-                        answer += 1
-                        break
-        return answer
+            total_palindroms += len(between)
         
-        
+        return total_palindroms
