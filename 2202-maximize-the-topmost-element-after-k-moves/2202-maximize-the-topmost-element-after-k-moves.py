@@ -19,4 +19,4 @@ class Solution:
             k -= 1
         
         
-        return answer if answer != -math.inf else -1
+        return answer 
