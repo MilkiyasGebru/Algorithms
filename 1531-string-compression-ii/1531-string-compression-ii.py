@@ -1,38 +1,39 @@
 class Solution:
     def getLengthOfOptimalCompression(self, s: str, k: int) -> int:
         
-        @lru_cache(None)
-        def dp(i,last_count,last_letter,k):
+        
+        @cache
+        def dp(index,last_character,count,k):
             
-            count =0
             
-            if last_count != 0:
-                count = 1 if last_count == 1 else len(str(last_count)) + 1
-                
             if k < 0:
-                return inf
+                return math.inf
             
-            if i == len(s): 
-                return count
+            if index == len(s):
+                if last_character == "":
+                    return 0
+                length = 0 if count <= 1 else len(str(count))
+                return  length + 1
             
-            if s[i] == last_letter:
-                
-                return min(
-                    dp(i+1,last_count+1,last_letter,k)
-                    ,dp(i+1,last_count,last_letter,k-1)
-                )
             
-            return min(
-                dp(i+1,last_count,last_letter,k-1)
-                ,dp(i+1,1,s[i],k) + count
-            )
-        
-        return dp(0,0,"",k)
+            
+            if s[index] == last_character:
                 
-        
-
-        
+                return min(dp(index+1,last_character,count+1,k),
+                           dp(index+1,last_character,count,k-1))
+            else:
                 
+                if last_character == "":
+                    
+                    return min(dp(index+1,s[index],1,k),
+                           dp(index+1,last_character,count,k-1))
+                else:
+                    length = 0 if count <= 1 else len(str(count))
+                    return min(length + 1 + dp(index+1,s[index],1,k),
+                               dp(index+1,last_character,count,k-1))
         
-                        
+        return dp(0,"",0,k)
+            
+                           
+            
             
