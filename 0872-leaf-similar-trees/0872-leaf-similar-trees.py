@@ -25,8 +25,4 @@ class Solution:
         dfs(root1,arr1)
         dfs(root2,arr2)
         
-        
-        for i in range(min(len(arr1),len(arr2))):
-            if arr1[i] != arr2[i]:
-                return False
-        return len(arr1) == len(arr2)
+        return list(arr1) == list(arr2)
