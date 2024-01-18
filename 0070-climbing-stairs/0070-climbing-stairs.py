@@ -1,14 +1,11 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         
-        @cache
-        def rec(n):
-            
-            if n == 0:
-                return 1
-            if n < 0:
-                return 0
-            
-            return rec(n-1) + rec(n-2)
         
-        return rec(n)
+        dp = [0 for _ in range(n+1)]
+        dp[0] = dp[1] = 1
+        for i in range(2,len(dp)):
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[-1]
+        
+        
