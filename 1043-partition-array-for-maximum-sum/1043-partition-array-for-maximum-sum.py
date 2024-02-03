@@ -1,19 +1,17 @@
 class Solution:
     def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
         
-        size = len(arr)//k
-        @lru_cache(None)
-        
-        def dp(index,size,maxx):
+        @cache
+        def dp(index,count,max_index):
             
             if index == len(arr):
-                
-                return maxx*size
+                return count*arr[max_index]
             
-            if k == size:
-                return size*maxx + dp(index+1,1,arr[index])    
+            if count == k:
+                return count*arr[max_index] + dp(index+1,1,index)
             
-            return max( max(maxx , arr[index])*(size + 1)  + dp(index+1,0,0), dp(index+1,size+1,max(maxx , arr[index])))
+            return max(count*arr[max_index] + dp(index+1,1,index), dp(index+1,count+1,index if arr[index] > arr[max_index] else max_index))
         
         return dp(0,0,0)
-            
+        
+                     
