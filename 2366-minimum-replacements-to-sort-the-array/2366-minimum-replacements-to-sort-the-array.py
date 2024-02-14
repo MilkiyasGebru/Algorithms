@@ -1,19 +1,18 @@
 class Solution:
     def minimumReplacement(self, nums: List[int]) -> int:
         
-        maxx = nums[-1]
-        operation = 0
+
+        right_min = nums[-1]
+        answer = 0
         
-        for i in range(len(nums)-2,-1,-1):
+        for i in range(len(nums)-1,-1,-1):
             
-            if nums[i] > maxx:
-                
-                operation += math.ceil(nums[i]/maxx) - 1
-                div = math.ceil(nums[i]/maxx)
-                maxx =  math.floor(nums[i]/div)
-                
+            if nums[i] > right_min:
+                length = math.ceil(nums[i]/right_min)
+                answer += length - 1
+                right_min = math.floor(nums[i]/length )
             else:
+                right_min = nums[i]
                 
-                maxx = nums[i]
-                
-        return operation
+        
+        return answer
