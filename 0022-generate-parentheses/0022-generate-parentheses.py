@@ -1,16 +1,22 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         
-        answer = set()
-        def backTrack(array,left,right):
-            if (left < 0 or right < 0) or (right < left):
+        self.answer = []
+        def backtrack(arr,left,right):
+            
+            if right > left or left > n:
                 return
-            elif left == 0 and right == 0:
-                nonlocal answer
-                answer.add("".join(array))
+            
+            if len(arr) == 2*n:
+                self.answer.append("".join(arr))
                 return
-            else:
-                backTrack(array+["("],left-1,right)
-                backTrack(array+[")"],left,right-1)
-        backTrack([],n,n)
-        return answer
+            
+            backtrack(arr+["("],left+1,right)
+            backtrack(arr+[")"],left,right+1)
+        
+        backtrack([],0,0)
+        return self.answer
+                
+                
+            
+        
