@@ -10,10 +10,12 @@ class Solution:
             if len(arr) == 2*n:
                 self.answer.append("".join(arr))
                 return
-            
-            backtrack(arr+["("],left+1,right)
-            backtrack(arr+[")"],left,right+1)
-        
+            arr.append("(")
+            backtrack(arr,left+1,right)
+            arr.pop()
+            arr.append(")")
+            backtrack(arr,left,right+1)
+            arr.pop()
         backtrack([],0,0)
         return self.answer
                 
