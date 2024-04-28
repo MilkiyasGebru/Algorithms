@@ -1,7 +1,6 @@
 class Solution:
     def findRotateSteps(self, ring: str, key: str) -> int:
         
-        f = defaultdict(list)
         @cache
         def dp(curr_index,key_index):
             
@@ -13,12 +12,15 @@ class Solution:
             
             left_most = right_most = curr_index
             left_cost = right_cost = 0
+            
             while ring[left_most] != key[key_index]:
+                
                 left_cost += 1
                 left_most -= 1
                 left_most %= len(ring)
                 
             while ring[right_most] != key[key_index]:
+                
                 right_cost += 1
                 right_most += 1
                 right_most %= len(ring)
