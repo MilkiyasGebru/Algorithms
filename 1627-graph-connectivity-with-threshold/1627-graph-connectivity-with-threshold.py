@@ -24,7 +24,7 @@ class UnionFind:
 class Solution:
     def areConnected(self, n: int, threshold: int, queries: List[List[int]]) -> List[bool]:
         graph = UnionFind(n+1)
-        for factor in range(threshold+1,n+1):
+        for factor in range(threshold+1,(n+2)//2):
             i = 1
             num = factor
             while num <= n:
