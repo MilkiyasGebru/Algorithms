@@ -9,11 +9,10 @@ class Solution:
                 total_xor = 0
                 for num in arr:
                     total_xor ^= num
-                self.total += total_xor
-                return
+                
+                return total_xor
             
-            backTrack(index+1,arr+[nums[index]])
-            backTrack(index+1,arr)
+            return backTrack(index+1,arr+[nums[index]]) + backTrack(index+1,arr)
+            
         
-        backTrack(0,[0])
-        return self.total
+        return backTrack(0,[0])
