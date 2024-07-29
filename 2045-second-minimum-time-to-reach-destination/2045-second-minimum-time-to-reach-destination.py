@@ -19,6 +19,8 @@ class Solution:
             
             if len(f[node]) >= 2:
                 continue
+            if len(f[n]) >= 2:
+                return max(f[n])
 
             f[node].add(cur_time)
             
