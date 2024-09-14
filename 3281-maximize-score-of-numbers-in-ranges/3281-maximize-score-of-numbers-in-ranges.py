@@ -1,13 +1,14 @@
 class Solution:
     
     def is_condition(self,start,x,d):
-        start = start.copy()
-        # print(start)
+        
+        value = start[0]
+        
         for i in range(1,len(start)):
-            if start[i] - start[i-1] + d < x:
+            
+            if start[i] - value + d < x:
                 return False
-            start[i] = max(start[i],start[i-1]+x)
-        # print(start)
+            value = max(start[i],value+x)
         
         return True
         
@@ -15,10 +16,10 @@ class Solution:
     def maxPossibleScore(self, start: List[int], d: int) -> int:
         
         start.sort()
-        # start[-1] += d
         
         left = 0
         right = start[-1] - start[0] + d + 1
+        
         while left < right:
             
             mid = (left + right)//2
