@@ -3,9 +3,8 @@ class Solution:
         # I can not build trie
         answer = []
         start = 1
-        while start :
-            if answer and str(answer[-1]) >= str(start):
-                break
+        while len(answer) < n :
+            
             if start <= n:
                 answer.append(start)
                 start *= 10
