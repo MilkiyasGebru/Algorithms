@@ -2,10 +2,7 @@ class Solution:
     def dividePlayers(self, skill: List[int]) -> int:
         freq = Counter(skill)
         answer = 0
-        team_score = sum(skill)
-        
-        if team_score %(len(skill)//2) != 0 and len(skill) > 2:
-            return -1
+        team_score = sum(skill)        
         team_score //= (len(skill)//2)
         
         for player in skill:
