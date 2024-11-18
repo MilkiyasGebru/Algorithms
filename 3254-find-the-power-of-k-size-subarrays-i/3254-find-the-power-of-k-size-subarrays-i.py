@@ -13,7 +13,6 @@ class Solution:
                 answer[i] = -1
             else:
                 answer[i] = q[-1]
-        while len(answer) > len(nums) -k + 1:
-            answer.pop()
-        return answer
+        
+        return answer[:len(nums)-k+1]
             
